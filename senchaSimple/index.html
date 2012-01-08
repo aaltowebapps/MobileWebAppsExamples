@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+        <title>Hello World</title> 
+        <script src="sencha-touch.js" type="text/javascript"></script> 
+        <link href="sencha-touch.css" rel="stylesheet" type="text/css" /> 
+         <script type="text/javascript"> 
+            new Ext.Application({
+                launch: function() {
+                    var cars = new Ext.data.Store({
+                        model: Ext.regModel('', {fields: ['name', 'link']}),
+                        data: [
+                            {name: 'Acura', link:'na'},
+                            {name: 'Audi', link:'sa'},
+                            {name: 'BMW', link:'eu'},
+                            {name: 'Cadillac', link:'eu'},
+                            {name: 'Ferrari', link:'eu'}
+                        ]
+                    });
+                    new Ext.Panel({
+                        fullscreen: true,
+                        dockedItems: [{
+                            xtype: 'toolbar', title: 'List of cars',
+                        }],
+                        items: [{
+                            xtype: 'list', store: cars, itemTpl: '{name}'
+                        }]
+                    });
+                }
+            }); 
+        </script> 
+    </head> 
+    <body></body> 
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+%html
+  %head
+    %title
+      Offile Data Access Application
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = stylesheet_link_tag "http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css"
+    = javascript_include_tag "http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"
+
+    = csrf_meta_tags
+    
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+
+  %body
+    %div(data-role="page")
+      
+      %div(data-role="header")
+        %h1
+          Offline Data Access
+     
+      %div(data-role="content")
+        =yield
+      
+      %div(data-role="footer" data-position="fixed" )
+        %div(data-role="navbar")
+          %ul
+            %li
+              %a(href="#" id='home')
+                Home
+            %li
+              %a(href="#" id="update")
+                Update
+            %li
+              %a(href="#" id="clear")
+                Clear
+                
+            
