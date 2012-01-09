@@ -7,3 +7,5 @@ gem "guard"
 gem 'guard-haml'
 gem 'guard-sass'
 gem 'guard-coffeescript'
+
+gem 'em-websocket'
