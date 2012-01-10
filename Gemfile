@@ -9,3 +9,7 @@ gem 'guard-sass'
 gem 'guard-coffeescript'
 
 gem 'em-websocket'
+
+gem 'sinatra'
+
+gem 'pusher'

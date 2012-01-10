@@ -23,7 +23,13 @@ EventMachine.run {
       @messages.each do |message|
         ws.send message
       end
-    }
+      
+      #Broadcast the notification to all users
+      @channel.push  ({
+        "nickname" => '', 
+        "message" => "New user joined. #{@users.length} users in chat", 
+        "timestamp" => timestamp }.to_json)
+   }
 
     ws.onmessage { |msg|
       
@@ -41,6 +47,12 @@ EventMachine.run {
     ws.onclose { 
       @channel.unsubscribe(@users[ws.object_id])
       @users.delete(ws.object_id)
+
+      #Broadcast the notification to all users
+      @channel.push ({
+        "nickname" => '', 
+        "message" => "One user left. #{@users.length} users in chat", 
+        "timestamp" => timestamp}.to_json)
     }
   end
 } 
