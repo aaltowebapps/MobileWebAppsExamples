@@ -1,0 +1,5 @@
+%form(action="/new" method="post")
+  %input(type = "text" name="title" id="title" placeholder="Post Title")
+  %textarea(name="content" rows = "5" placeholder = "Content")
+  %input(type = "email" name="email" placeholder = "Email")              
+  %button#postEntry(type = "submit") Post

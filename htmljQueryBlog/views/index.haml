@@ -1,0 +1,13 @@
+%ul(data-role = "listview")
+  - $articles.each do |a|
+    %li
+      %p.ui-li-aside
+        =a[:timestamp]
+      %h3 
+        =a[:title]
+      %p
+        %strong
+          =a[:email]
+      %p 
+        =a[:content]
+
