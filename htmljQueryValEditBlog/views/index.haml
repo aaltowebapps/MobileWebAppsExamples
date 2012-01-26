@@ -1,0 +1,13 @@
+%ul(data-role = "listview")
+  - $articles.each_with_index do |a, i|
+    %li
+      %p.ui-li-aside
+        =a[:timestamp]
+      %h3(contenteditable="true" data-name="title" data-id='#{i}') 
+        =a[:title]
+      %p
+        %strong
+          =a[:email]
+      %p(contenteditable="true" data-name="content" data-id='#{i}')
+        =a[:content]
+

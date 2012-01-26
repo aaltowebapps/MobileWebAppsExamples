@@ -1,0 +1,69 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js")
+    %title
+      Form Blog
+    :css
+      [required] {
+        border-color: #88a;
+        -webkit-box-shadow: 0 0 3px rgba(0, 0, 255, .5);
+      }
+      :invalid {
+        border-color: #e88;
+        -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
+      }
+      input.invalid {
+        background: url(error.png) no-repeat 4px 6px;
+        padding-left: 30px;
+      }
+      
+    :javascript
+      $(function() {
+        $("#postEntry").bind("click", function() {
+          $(".invalid").removeClass("invalid")
+          if ($(":invalid").length) {
+            $(":invalid").addClass("invalid");
+            return false;
+          }
+        });
+        $("[contenteditable]").focus(function() {
+          var $this = $(this);
+          $this.data('before', $this.html());
+          return $this;          
+        });
+        $("[contenteditable]").live('blur', function() {
+            var $this = $(this);
+            if ($this.data('before') !== $this.html()) {
+                $this.data('before', $this.html());
+                $this.trigger('change');
+                //alert($this.attr('data-id'));
+                var msg = {};
+                msg['id'] = $this.attr('data-id');
+                msg[$this.attr('data-name')] = $this.html();
+                $.post('/update', msg);
+            }
+            return $this;
+        });        
+                      
+      })
+  %body
+    %div(data-role="page" id="home")
+      %div(data-role="header")
+        %h1 Our First Blog
+
+      %div(data-role="content")
+        = yield
+        
+      %div(data-role="footer" data-position="fixed")
+        %div(data-role="navbar")
+          %ul
+            %li
+              %a(href="/" data-ajax="false") Posts
+            %li
+              %a(href="/new" data-ajax="false") New Entry

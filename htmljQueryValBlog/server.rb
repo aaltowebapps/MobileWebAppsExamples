@@ -22,8 +22,12 @@ get '/new' do
 end
 
 post '/new' do
-  article = params.merge( {:timestamp => timestamp})
+  #Symbolize the params keys
+  article = params.inject({}) { |h,(k,v)| h[k.to_sym] = v; h }
+  
+  article[:timestamp] = timestamp
   $articles << article
+
   puts article
   redirect to ("/")
 end

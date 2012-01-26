@@ -2,7 +2,7 @@ require 'sinatra'
 require 'json'
 require 'haml'
 
-$articles = [{:title => "Welcome", 
+$articles = [{ :title => "Welcome", 
                :content => "My first post",
                :email => "hello@blog.com",
                :timestamp => "1.1.2012 10:20:30"}]
@@ -31,3 +31,17 @@ post '/new' do
   puts article
   redirect to ("/")
 end
+
+post '/update' do
+  #Symbolize the params keys
+  article = params.inject({}) { |h,(k,v)| h[k.to_sym] = v; h }
+
+  #Update the timestamp
+  article[:timestamp] = timestamp
+  
+  #Replace the entry in the list of articles
+  $articles[article[:id].to_i].merge!(article)
+
+  puts $articles
+end
+
