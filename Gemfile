@@ -13,3 +13,5 @@ gem 'em-websocket'
 gem 'sinatra'
 
 gem 'pusher'
+
+gem 'manifesto'
