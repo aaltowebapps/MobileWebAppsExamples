@@ -1,0 +1,20 @@
+%div(data-role="page" id="home")
+  = haml :header
+  
+  %div(data-role="content" id="articlesList")
+  
+  = haml :footer
+
+%div(data-role="page" id="new")
+  = haml :header
+  
+  %div(data-role="content")
+    = haml :new
+  
+  =haml :footer      
+
+%div(data-role="page" id="options")
+
+  =haml :options
+
+  =haml :footer

@@ -1,0 +1,104 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js")
+    %script(type="text/javascript" src="handlebars-1.0.0.beta.6.js")
+    %title
+      Form Blog
+    :css
+      [required] {
+        border-color: #88a;
+        -webkit-box-shadow: 0 0 3px rgba(0, 0, 255, .5);
+      }
+      :invalid {
+        border-color: #e88;
+        -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
+      }
+      input.invalid {
+        background: url(error.png) no-repeat 4px 6px;
+        padding-left: 30px;
+      }
+      
+    :javascript
+      var Templates = {};
+
+      function loadArticles () {
+        $.getJSON('/articles', function(json) {
+          var content = Templates.articles(json);
+          $("#articlesList").html(content).find("ul").listview();
+        });
+      }
+  
+      $(function() {
+      
+        $('script[type="text/x-handlebars-template"]').each(function () {
+          Templates[this.id] = Handlebars.compile($(this).html());
+        });
+
+        loadArticles();
+
+        // Assign the options from the local storage
+        $("#optName").val(localStorage.name);
+        $("#optEmail").val(localStorage.email);
+
+        $("#postEntry").bind("click", function(e) {
+          e.preventDefault();
+          $("#new .invalid").removeClass("invalid")
+          if ($("#new :invalid").length) {
+            $("#new :invalid").addClass("invalid");
+            return false;
+          }
+          var msg = {};
+          msg['title'] = $('#title').val();
+          msg['content'] = $('#content').val();
+          msg['email'] = localStorage.email;
+          msg['name'] = localStorage.name;
+          $.post('/new', msg, function() {
+            loadArticles();
+            $.mobile.changePage("/");
+          });
+        });
+         $("[contenteditable]").focus(function() {
+          var $this = $(this);
+          $this.data('before', $this.html());
+          return $this;          
+        });
+        $("[contenteditable]").live('blur', function() {
+            var $this = $(this);
+            if ($this.data('before') !== $this.html()) {
+                $this.data('before', $this.html());
+                $this.trigger('change');
+                //alert($this.attr('data-id'));
+                var msg = {};
+                msg['id'] = $this.attr('data-id');
+                msg[$this.attr('data-name')] = $this.html();
+                $.post('/update', msg);
+            }
+            return $this;
+        });   
+        
+        //Save the options in the local storage     
+        $("#saveOpt").bind("click", function() {
+          $("#options .invalid").removeClass("invalid")
+          if ($("#options :invalid").length) {
+            $("#options :invalid").addClass("invalid");
+            return false;
+          }
+          localStorage.name = $("#optName").val();
+          localStorage.email = $("#optEmail").val();
+          
+        })          
+      })
+      
+      
+  %body
+    = haml :templates
+    = yield
+
+        
+        

@@ -1,0 +1,168 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js")
+    %script(type="text/javascript" src="handlebars-1.0.0.beta.6.js")
+    %script(type="text/javascript" src="underscore.js")
+    %script(type="text/javascript" src="json2.js")
+    %script(type="text/javascript" src="backbone.js")
+ 
+    %title
+      Blog
+    :css
+      [required] {
+        border-color: #88a;
+        -webkit-box-shadow: 0 0 3px rgba(0, 0, 255, .5);
+      }
+      :invalid {
+        border-color: #e88;
+        -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
+      }
+      input.invalid {
+        background: url(error.png) no-repeat 4px 6px;
+        padding-left: 30px;
+      }
+      
+    :javascript
+      var Templates = {};
+      var articles;
+      
+      var Article = Backbone.Model.extend ({
+      });
+
+      var Articles = Backbone.Collection.extend ({
+        model: Article,
+        url: '/articles'
+      });
+            
+      $(function() {
+        //Load the templates and store them in a global variable
+        $('script[type="text/x-handlebars-template"]').each(function () {
+          Templates[this.id] = Handlebars.compile($(this).html());
+        });
+        
+        //View for rendering one entry of the blog
+        var ItemView = Backbone.View.extend ({
+          tagName: "li",
+          events: {
+            "blur [contenteditable]": "saveValues"
+          },
+          initialize: function() { 
+            this.model.bind('change', this.render, this);
+            this.template = Templates.article;  
+          },
+          render: function() { 
+            $(this.el).html( this.template(this.model.toJSON()) ); 
+            return this; 
+          },
+          saveValues: function() {
+            this.model.save({
+              title: this.$("[data-name='title']").html(), 
+              content: this.$("[data-name='content']").html()
+            },{silent: true});
+          }        
+        });
+        
+        //View for rendering the list of entries
+        var ListView = Backbone.View.extend ({
+          el: $("#articlesList"),
+          events: {
+          },
+          initialize: function() {
+            this.collection.bind('reset', this.render, this);
+            this.collection.bind('all', this.render, this);
+          },
+          render: function() {
+            var el = this.$el;
+            el.empty();
+            this.collection.each(function(item) {
+              var itemView = new ItemView({model: item});
+              el.append(itemView.render().el);
+            });
+            this.$el.listview('refresh');
+            return this;
+          },
+        });
+        
+        //View for creating a new entry
+        var NewView = Backbone.View.extend({
+          el: $("#new"),
+          events: {
+            "click #postEntry": "createNew"
+          },
+          initialize: function() {
+            this.title = this.$("#title");
+            this.content = this.$("#content");
+            
+          },
+          createNew: function() {
+            this.$(".invalid").removeClass("invalid");
+            if (this.$(":invalid").length) {
+              this.$(":invalid").addClass("invalid");
+              return false;
+            }
+            this.collection.create({
+              title: this.title.val(), 
+              content: this.content.val(),
+              email: localStorage.email,
+              name: localStorage.name
+            }, {at: 0});
+            this.title.val("");
+            this.content.val("");
+          } 
+        });
+
+        //View for editing the options
+        var OptionsView = Backbone.View.extend({
+          el: $("#options"),
+          events: {
+            "click #saveOpt": "saveOptions"
+          },
+          initialize: function() {
+            this.name = this.$("#optName");
+            this.email = this.$("#optEmail");
+            
+            // Assign the options from the local storage
+            this.name.val(localStorage.name);
+            this.email.val(localStorage.email);
+          },
+          saveOptions: function() {
+            this.$(".invalid").removeClass("invalid")
+            if (this.$(":invalid").length) {
+              this.$(":invalid").addClass("invalid");
+              return false;
+            }
+            localStorage.name = this.name.val();
+            localStorage.email = this.email.val();
+          }
+        });
+        
+        //Trigger an update of the articles collection 
+        $("#refresh").live('click',function () {
+          articles.fetch();
+        });    
+        
+        //Instantiate the collection of articles
+        var articles = new Articles();
+
+        //Instantiate the views
+        var listView = new ListView({collection: articles});
+        var newView = new NewView({collection: articles});
+        var optionsView = new OptionsView();
+        
+        //Fetch the latest articles and trigger an update of the views
+        articles.fetch();
+      })
+      
+      
+  %body
+    = haml :templates
+    = yield
+
+        
+        

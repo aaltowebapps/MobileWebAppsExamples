@@ -1,0 +1,10 @@
+%script(id="article" type="text/x-handlebars-template")
+  %p.ui-li-aside
+    {{timestamp}}
+  %h3(contenteditable="true" data-name="title" data-id='{{id}}') 
+    {{title}}
+  %p
+    %strong
+      {{email}}
+  %p(contenteditable="true" data-name="content" data-id='{{id}}')
+    {{content}}
