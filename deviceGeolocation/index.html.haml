@@ -1,0 +1,66 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js")
+    %script(type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true")
+ 
+    %title
+      File
+      
+    :javascript
+      var myLatLng;
+      var map;
+      var marker;
+      
+      $(function() {
+        //Get position fast and initialized google map
+        navigator.geolocation.getCurrentPosition(function(geodata) {
+          myLatLng = new google.maps.LatLng(geodata.coords.latitude, geodata.coords.longitude);
+          
+          var myOptions = { center: myLatLng, zoom: 8, mapTypeId: google.maps.MapTypeId.ROADMAP };
+          map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+          marker = new google.maps.Marker( { position: myLatLng, map: map, title:"My position" });
+        });
+        //Update the position at least every 5 seconds and use GPS if available
+        navigator.geolocation.watchPosition(function(geodata) {
+          $(".latitude").html(geodata.coords.latitude);
+          $(".longitude").html(geodata.coords.longitude);
+          $(".accuracy").html(geodata.coords.accuracy);
+          $(".altitude").html(geodata.coords.altitude);
+          $(".heading").html(geodata.coords.heading);
+          $(".speed").html(geodata.coords.speed);
+          
+          myLatLng = new google.maps.LatLng(geodata.coords.latitude, geodata.coords.longitude);
+          marker.setPosition(myLatLng);
+        },function() {},{enableHighAccuracy:true, maximumAge:30000, timeout:5000} );  
+      })
+      
+      
+  %body
+    %strong Location
+    %br
+    latitude:
+    %span.latitude
+    %br
+    longitude:
+    %span.longitude
+    %br
+    accuracy:
+    %span.accuracy
+    %br
+    altitude:
+    %span.altitude
+    %br
+    heading:
+    %span.heading
+    %br
+    speed:
+    %span.speed
+    %br
+    #map(style="width:300px; height:200px")

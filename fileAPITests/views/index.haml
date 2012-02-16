@@ -1,0 +1,235 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js")
+ 
+    %title
+      File
+      
+    :javascript
+      // Take care of vendor prefixes.
+      var BlobBuilder = window.MozBlobBuilder || window.WebKitBlobBuilder || window.BlobBuilder;
+      window.URL = window.URL || window.webkitURL;  
+
+      $(function() {
+        
+        //Upload a file by posting a form
+        //Works in most browsers for uploading a file (except iOS)
+        $("#uploadFormPostButton").click(function(e) { 
+          e.preventDefault();
+          $("#fileChoose0").click();
+        });
+        $("#fileChoose0").live('change', function() {
+          $("#uploadFormPost").submit();
+        });
+
+        //Upload a text by creating a Blob and XHR2 send
+        $("#uploadText").click( function(e) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/uploadText', true);
+          xhr.onload = function(e) {console.log (this.responseText); };
+          var bb = new BlobBuilder();
+          bb.append('hello world');
+          xhr.send(bb.getBlob('text/plain'));
+        });  
+        
+        //Upload one or more images by using the XHR2 binary send function
+        //Should work in FF10 for android and Android 4.0
+        $("#uploadFile").click(function(e) {
+          $("#fileChoose1").click();
+        });
+        $("#fileChoose1").live('change', function(e) {
+          $.each(this.files, function (i,file){
+            if (!file.type.match(/image.*/)) {
+              return;
+            }  
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/uploadFile', true);
+            xhr.onload = function(e) {console.log (this.responseText); };
+            xhr.setRequestHeader("X-File-Name", file. name);
+            xhr.setRequestHeader("Content-Type", "application/octet-stream");
+            xhr.send(file); //XHR2
+          });
+        });
+
+        //Upload one or more files by creating a multipart/form-data message
+        //using the new FormData object
+        //Should work on FF 10 and Android 4
+        $("#uploadFormData").click(function(e) {
+          $("#fileChoose2").click();
+        });
+        $("#fileChoose2").live('change', function(e) {
+          var fd = new FormData(); // XHR2        
+          $.each(this.files, function (i,file){
+            if (!file.type.match(/image.*/)) {
+              return;
+            }  
+            fd.append(file.name, file);
+          });
+          
+          var xhr = new XMLHttpRequest(); 
+          xhr.open('POST', '/uploadFormData', true);
+          xhr.onload = function(e) {console.log (this.responseText); };
+
+          xhr.send(fd); // as multipart/form-data
+        });
+        
+        //Upload one or more files by reading the file into an array buffer 
+        //sending it as binary using XHR2 send functionality
+        //Should work FF10 and Android 4.0
+        $("#uploadFileMobile").click(function(e) {
+          $("#fileChoose3").click();
+        });
+        $("#fileChoose3").live('change', function(e) {
+          $.each(this.files, function (i,file){
+            if (!file.type.match(/image.*/)) {
+              return;
+            }  
+            var reader = new FileReader();
+            reader.onload = function() {
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', '/uploadFile', true);
+              xhr.onload = function(e) {console.log (this.responseText); };
+              xhr.setRequestHeader("X-File-Name", file. name);
+              xhr.setRequestHeader("Content-Type", "application/octet-stream");
+              var data = new Uint8Array(reader.result);
+              xhr.send(data); //XHR2
+            }
+            reader.readAsArrayBuffer(file);          
+          });
+        });
+
+        //Upload one or more files by reading the object as URL and posting
+        //the Base64 encoded version
+        //Should work on FF10 and Android 4.0
+        $("#uploadFileBase64").click(function(e) {
+          $("#fileChoose4").click();
+        });
+        $("#fileChoose4").live('change', function(e) {
+          $.each(this.files, function (i,file){
+            if (!file.type.match(/image.*/)) {
+              return;
+            }  
+            var reader = new FileReader();
+            reader.onload = function() {
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', '/uploadBase64', true);
+              xhr.onload = function(e) {console.log (this.responseText); };
+              xhr.setRequestHeader("X-File-Name", file. name);
+              xhr.setRequestHeader("Content-Type", "application/octet-stream");
+              var data = reader.result;
+              xhr.send(data); //XHR2
+            }
+            reader.readAsDataURL(file);          
+          });
+        });
+        
+        //Download an image as a blob and add it to the DOM
+        //Works and FF10 and should work on Android 4.0
+        $("#downloadBlob").click(function(e) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', 'logo.png', true);
+          xhr.responseType = 'blob';
+          
+          xhr.onload = function(e) {
+            if (this.status == 200) {
+              var blob = this.response;
+              
+              var img = document.createElement('img');
+              img.onload = function(e) {
+                window.URL.revokeObjectURL(img.src); // Clean up after yourself.
+              };
+              img.src = window.URL.createObjectURL(blob);
+              $('#blobOutput').append(img);
+            }
+          };
+          xhr.send();  
+        });
+
+        //Download an image as an arraybuffer and show the first 3 bytes
+        //Works on FF10, iOS5 and should work on Android 4.0
+        $("#downloadArray").click(function(e) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', 'logo.png', true);
+          xhr.responseType = 'arraybuffer';
+          
+          xhr.onload = function(e) {
+            if (this.status == 200) {
+              var a = new Uint8Array(this.response);
+              html = 'First 3 bytes: ' + a[0] + ',' + a[1] + ',' + a[2];  
+              $('#arrayOutput').html(html);
+            }
+          };
+          xhr.send();  
+        });
+        //Read a text file and insert it in the DOM
+        //Should work on FF10
+        $("#readFileText").click(function(e) {
+          $("#fileTextChoose").click();
+        });
+        $("#fileTextChoose").live('change', function(e) {
+          var reader = new FileReader();
+          reader.onload = function() {
+            var text = reader.result;
+            $("#fileTextOutput").html(text);
+          }
+          reader.readAsText(this.files[0]);         
+        });
+        
+        //Read an image from the file system and inserts in the DOM
+        //Should work on FF10 and Android 4.0
+        $("#readFileDataURL").click(function(e) {
+          $("#fileDataURLChoose").click();
+        });
+        $("#fileDataURLChoose").live('change', function(e) {
+          var reader = new FileReader();
+          reader.onload = function() {
+            var text = '<img src="'+reader.result+'"/>';
+            $("#fileDataURLOutput").html(text);
+          }
+          reader.readAsDataURL(this.files[0]);         
+        });
+      })
+      
+      
+  %body
+    %p
+      %form(id="uploadFormPost" action="/uploadFormData" method="post" data-ajax='false' enctype="multipart/form-data")
+        %input(type="file" id="fileChoose0" name="file"  multiple="true" accept="image/*" style="height:0;width:0;") 
+        %button(id="uploadFormPostButton") Upload via Form POST 
+    %p
+      %a(id="uploadText" data-role="button") Upload a string (XHR2)
+    %p
+      %a(id="uploadFile" data-role="button") Upload a file (XHR2)
+      %input(type="file" id="fileChoose1" multiple="true" accept="image/*" style="height:0;width:0;")  
+    %p
+      %a(id="uploadFormData" data-role="button") Upload via DataForm (XHR2)
+      %input(type="file" id="fileChoose2" multiple="true" accept="image/*" style="height:0;width:0;")  
+    %p
+      %a(id="uploadFileMobile" data-role="button") Upload binary (XHR2)
+      %input(type="file" id="fileChoose3" multiple="true" accept="image/*" style="height:0;width:0;")  
+    %p
+      %a(id="uploadFileBase64" data-role="button") Upload Base64 (XHR2)
+      %input(type="file" id="fileChoose4" multiple="true" accept="image/*" style="height:0;width:0;")  
+    %p
+      %a(id="downloadBlob" data-role="button") Fetch blob and insert DOM
+      %p#blobOutput
+    %p
+      %a(id="downloadArray" data-role="button") Fetch Array
+      %p#arrayOutput
+    %p
+      %a(id="readFileText" data-role="button") Insert file as text in DOM
+      %input(type="file" id="fileTextChoose" style="height:0;width:0;")  
+      %p#fileTextOutput
+    %p
+      %a(id="readFileDataURL" data-role="button") Insert image as URL in DOM ()
+      %input(type="file" id="fileDataURLChoose" accept="image/*" style="height:0;width:0;")  
+      %p#fileDataURLOutput
+        
+        
+        

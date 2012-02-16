@@ -1,0 +1,81 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js")
+    %script(type="text/javascript" src="handlebars-1.0.0.beta.6.js")
+    %script(type="text/javascript" src="underscore.js")
+    %script(type="text/javascript" src="json2.js")
+    %script(type="text/javascript" src="backbone.js")
+ 
+    %title
+      Blog
+      
+    :javascript
+      function FileUpload(name, file) {  
+        var reader = new FileReader();    
+        var xhr = new XMLHttpRequest();  
+        this.xhr = xhr;  
+          
+        var self = this;  
+
+        xhr.open("POST", "/upload");  
+        xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');  
+        //xhr.setRequestHeader("Content-Type", "application/octet-stream");
+        xhr.setRequestHeader("X-File-Name", name);
+        reader.onload = function(evt) {  
+          var BlobBuilder = window.MozBlobBuilder || window.WebKitBlobBuilder || window.BlobBuilder;
+          var bb = new BlobBuilder();
+          bb.append(evt.target.result);
+          var blob = bb.getBlob('text/plain');
+          xhr.send(blob);
+          //xhr.send(evt.target.result);  
+        };  
+        //reader.readAsDataURL(file);  //in base64  
+        reader.readAsBinaryString(file);
+        //reader.readAsDataURL(file);
+      }  
+      $(function() {
+        $("#fileSelect").click(function(e) {
+          e.preventDefault();
+          $("#fileChoose").click();
+          
+        });
+        $("#fileChoose").live('change', function(e) {
+          
+          $.each(this.files, function (i,file){
+            if (!file.type.match(/image.*/)) {
+              return;
+            }  
+            //alert(file.size/1024);         
+
+            var reader = new FileReader();
+            reader.onload = (function(theFile) {
+              return function(e) {
+                var html = '<li data-theme="c"><img data-file="'+theFile+'"class="thumb" src="' + e.target.result + '"/><h3>'+theFile.name+'</h3><p>'+(theFile.size/1024).toFixed(0)+'kB</li>';
+                $("#pictureList").append(html);
+                $("#pictureList").listview('refresh');
+              };
+            })(file);
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(file);
+            FileUpload(file.name,file);
+
+          });
+        });
+        $("#upload").click(function(e) {
+          $("[data-file]").each(function(item) {
+            alert(this.val("data-file"));
+          });
+        });
+      })
+            
+  %body
+    = yield
+
+        
+        

@@ -1,0 +1,23 @@
+%div(data-role="page" id="home")
+  = haml :header
+  
+  %div(data-role="content")
+    %ul(data-role = "listview" id="pictureList")
+    
+  
+    %input(type="file" id="fileChoose" multiple="true" accept="image/*" style="height:0;width:0;")  
+  = haml :footer
+
+%div(data-role="page" id="new")
+  = haml :header
+  
+  %div(data-role="content")
+    = haml :new
+  
+  =haml :footer      
+
+%div(data-role="page" id="options")
+
+  =haml :options
+
+  =haml :footer

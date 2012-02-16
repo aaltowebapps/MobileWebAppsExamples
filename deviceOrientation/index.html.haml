@@ -1,0 +1,75 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js")
+
+    %title
+      Device Orientation
+   
+    :javascript
+      $(function() {
+        if (window.DeviceOrientationEvent) {  
+          window.addEventListener("deviceorientation", function( event ) {  
+            if(event.absolute) {
+              $(".absolute").show();
+            } else
+            {
+              $(".absolute").hide();
+            }
+            //alpha: rotation around z-axis  
+            $(".alpha").html(event.alpha);
+
+            //gamma: left to right  
+            $(".beta").html(event.beta);
+
+            //beta: front back motion  
+            $(".gamma").html(event.gamma);
+            var rotation = "rotateX("+(event.beta * -1) + "deg) rotateY(" + (event.gamma) + "deg) rotateZ(" + (event.alpha * -1) + "deg)";
+
+            $(".transform").html(rotation);
+            $("#imgLogo").css('-moz-transform',rotation);
+
+          }, false);  
+        }  
+        if (window.DeviceMotionEvent) {  
+          window.addEventListener("devicemotion", function( event ) {  
+            // Grab the acceleration including gravity from the results
+            var acceleration = event.accelerationIncludingGravity;
+            // Display the raw acceleration data
+            var rawAcceleration = "[" +  Math.round(acceleration.x*1000) + ", " + 
+              Math.round(acceleration.y*1000) + ", " + Math.round(acceleration.z*1000) + "]";
+            $(".acceleration").html(rawAcceleration);
+          }, false);
+        }  
+      });
+      
+  %body
+    %strong Device Orientation
+    %br
+    .absolute
+      Absolute Coord
+    %br
+    Rotate (Alpha): 
+    %span.alpha  
+    %br
+    frontToBack (Beta):
+    %span.beta
+    %br
+    leftToRight (Gamma):
+    %span.gamma
+    %br
+    %strong Device Motion
+    %br
+    Acceleration:
+    %span.acceleration
+    %br
+    Transform:
+    %span.transform
+    %br
+    .container(style="-moz-perspective: 300; perspective: 300;")
+      %img(src="http://www.w3.org/html/logo/downloads/HTML5_Badge_64.png" id="imgLogo" class="logo")
