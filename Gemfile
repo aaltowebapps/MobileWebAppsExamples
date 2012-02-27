@@ -15,3 +15,5 @@ gem 'sinatra'
 gem 'pusher'
 
 gem 'manifesto'
+
+gem 'thin'

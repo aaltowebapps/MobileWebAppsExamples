@@ -27,18 +27,14 @@ end
 
 post '/uploadFile' do
   raw = request.env["rack.input"].read
-  #raw = request.body.read
   puts "Received data size:" + raw.length.to_s
   File.open("public/"+request.env["HTTP_X_FILE_NAME"], "w") do |f| 
-    #f.puts Base64.decode64(raw);   
     f.puts raw;    
   end 
 end
 
 post '/uploadFormData' do
   raw = request.env["rack.input"].read
-  #raw = request.body.read
-  #puts raw
   puts params
   params.each do |k,v|
     File.open("public/"+v[:filename], "w") do |f| 

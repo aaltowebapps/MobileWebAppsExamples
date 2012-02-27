@@ -27,7 +27,7 @@
             event.preventDefault();
             var msg = {nickname: $('#nickname').val(), message: $('#message').val()};
             
-            $.post( 'http://localhost:4567/say',msg,'json');
+            $.post( 'http://' + location.host + '/say',msg,'json');
             $('#message').val("");
           })  
         });

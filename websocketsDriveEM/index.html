@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1' name='viewport' />
+    <link href='http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css' rel='stylesheet' />
+    <script src='http://code.jquery.com/jquery-1.6.4.min.js' type='text/javascript'></script>
+    <script src='http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js' type='text/javascript'></script>
+    <title>
+      WebSockets Drive
+    </title>
+  </head>
+  <body>
+    <script type='text/javascript'>
+      //<![CDATA[
+        var WebSocket = window.WebSocket || window.MozWebSocket;
+        
+        $(function() {
+        
+          socket = new WebSocket("ws://" + location.hostname + ":8080");
+          
+          var currentX = Math.random()*350;
+          var currentY = Math.random()*450;
+          var color = 'rgb(' + Math.floor(Math.random()*255) + ',' +   
+                         Math.floor(Math.random()*255) + ',' + 
+                         Math.floor(Math.random()*255) + ')';  
+          var lastX;
+          var lastY;
+          var lastSentX;
+          var lastSentY;
+          var heading = 0;
+          var speed = 0;
+          
+          var ctx = $('#canvas')[0].getContext('2d');
+        
+          $('#canvas').bind('vmousemove',function(ev){
+            ev = ev || window.event;
+            currentX = ev.pageX || ev.clientX;
+            currentY = ev.pageY || ev.clientY;
+          });
+          
+          socket.onopen = function(event) {
+            setInterval(function(){
+              if(currentX !== lastSentX || currentY !== lastSentY){
+                socket.send( JSON.stringify({ x:currentX, y: currentY, color: color}) );
+                lastSentX = currentX;
+                lastSentY = currentY;
+              }
+            }, 30); // send every 300 milliseconds if position has changed
+          }
+          
+          socket.onmessage = function(event) {
+            var locs = $.parseJSON(event.data);
+            console.log(locs);
+            $.each(locs, function (i,loc){
+              if (loc.oldX != undefined) {
+                display(loc.oldX, loc.oldY, loc.x, loc.y, loc.color.toString());            
+              }
+            });
+        
+          }
+        
+          display = function(fromX, fromY, toX, toY, c) {
+            ctx.beginPath();
+            ctx.moveTo(fromX,fromY);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = c;
+            ctx.lineTo(toX,toY);
+            ctx.closePath();
+            ctx.stroke();
+          }
+        
+          window.addEventListener("deviceorientation", function( event ) {  
+            lastX = currentX;
+            lastY = currentY;
+            heading += Math.tan(event.gamma/360*Math.PI*2)/10;
+            speed = Math.tan(event.beta/360*Math.PI)*5;
+            currentY -= speed * Math.cos(heading);
+            currentX += speed * Math.sin(heading);
+            if (currentY < 0) { currentY = 0;}
+            if (currentY > 450) {currentY = 450;};
+            if (currentX < 0) { currentX = 0;}
+            if (currentX > 350) {currentX = 350;};
+            display(lastX, lastY, currentX, currentY, color);
+          });
+        });
+      //]]>
+    </script>
+    <div data-role='page'>
+      <canvas height='350' id='canvas' width='350'></canvas>
+    </div>
+  </body>
+</html>

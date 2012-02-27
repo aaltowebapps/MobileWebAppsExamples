@@ -1,0 +1,143 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Mandelbrot Set</title>
+   <link href="jquery-ui.css" rel="stylesheet" type="text/css">
+   <style type="text/css">
+     html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <script type="text/javascript" src="mandelbrot.js"></script>
+    <script type="text/javascript" src="jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.8.12.custom.min.js"></script>
+ </head>
+  <body>
+  <div style="width:100%">
+    <div style="width:29%; float:left; padding-left:1%">
+      <h3>Parameters</h3>
+      <b> Nb workers <span id="val-nbWorkers">4</span></b>
+     <br>
+     <div id="sl-nbWorkers" style="width:70%;height:10px; margin:15px" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a href="http://www.framexpeditions.com/~alex2/teaching/mandelbrot/#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 10.344827586206897%; "></a></div>
+      <b> Grid size <span id="val-gridSize">8</span></b>
+     <br>
+     <div id="sl-gridSize" style="width:70%;height:10px;
+       margin:15px" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a href="http://www.framexpeditions.com/~alex2/teaching/mandelbrot/#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 24.137931034482758%; "></a></div>
+     <br>
+       <input id="but-launch" type="button" name="launch" value="compute Mandelbrot set">
+     <br>
+       <b>Click on image to zoom</b> (but wait for the process to be
+   completed first)
+   <hr>
+   <h3>Elpased times</h3>
+      <pre id="elapsed-time">#work.  grid sz time(ms)
+4	8	1103
+4	8	2639</pre>
+    <hr>
+   <h3>A few words...</h3>
+   This page is an example on how to share to computation of a
+   Mandelbrot set with <a href="http://en.wikipedia.org/wiki/Web_Workers">Web Workers</a>, a
+   javascript threading API. This page is derived from a post by <a href="http://blogs.gnome.org/jamesh/2011/03/08/javascript-fractal/">James Henstridge</a>
+   <br>
+   We focus here on being able to set parameters to split the task:
+   <ul>
+     <li>nb workers: the number of parallel threads launched</li>
+     <li>grid size: by how many rows and columns you divide your
+   screen</li>
+   </ul>
+   The goal is to illustrate howhe threads share the work, who does
+   what, the the overall time taken to complete the request.
+   <p>
+   Please feel free to contact me <a href="mailto:alexandre.masselot@gmail.com">Alexandre Masselot</a>
+   or re-use the stuff.
+
+
+    </p></div>
+    <div id="canvas-container" style="width:70%; float:left">
+      <canvas id="fractal" width="809" height="659"></canvas>
+    </div>
+
+</div>
+  
+   <script type="text/javascript">
+     var boundaries={
+        x_min:-2.5,
+        x_max:1.5,
+        y_min:-1.5,
+        y_max:1.5
+     };
+     var  mandelbrot;
+ 
+     function launchMandebrot(){
+       var start;
+        var nworkers = $('#val-nbWorkers').html();
+       var gridsize = $('#val-gridSize').html();
+       mandelbrot.init($.extend(boundaries, {
+         nbworkers:nworkers,
+          gridsize:gridsize,
+            })
+        );
+        // This will resize the canvas and kick off the initial redraw.
+         mandelbrot.resize_to_parent();
+
+     };
+     function updateSliderValue(spid, val){
+       $('#'+spid).html(val);
+     }
+
+     $(function(){
+       var canvas = document.getElementById("fractal");
+
+          mandelbrot = new Mandelbrot($.extend(boundaries, {
+           canvas:canvas,
+           completed:function(){
+             var nworkers = $('#val-nbWorkers').html();
+             var gridsize = $('#val-gridSize').html();
+             $('#elapsed-time').html($('#elapsed-time').html()+"\n"+
+               nworkers+"\t"+gridsize+"\t"+(new Date().getTime()-start))
+           },
+           start:function(){
+            start = new Date().getTime()
+           },
+           changeBoundaries:function(xmin, xmax, ymin, ymax){
+           if((xmin!=boundaries.x_min) || (xmax!=boundaries.x_max) || (ymin!=boundaries.y_min) || (ymax!=boundaries.y_max)){
+               //$('#elapsed-time').html("");
+            }
+            boundaries.x_min=xmin;
+            boundaries.x_max=xmax;
+            boundaries.y_min=ymin;
+            boundaries.y_max=ymax;
+          }
+        }));
+  
+  
+        var nworkers=4;
+        var gridSize=8;
+        $('#sl-nbWorkers').slider({
+          min:1,
+          max:30,
+          value:nworkers,
+          change:function(evt,ui){
+           updateSliderValue('val-nbWorkers',ui.value)
+         },
+      });
+        $('#sl-gridSize').slider({
+          min:1,
+          max:30,
+          value:gridSize,
+          change:function(evt,ui){
+           updateSliderValue('val-gridSize',ui.value)
+         },
+      });
+      $('#val-nbWorkers').html(nworkers);
+       $('#val-gridSize').html(gridSize);
+
+
+       $('#but-launch').click(launchMandebrot);
+        launchMandebrot();
+     });
+   </script>
+
+
+</body></html>

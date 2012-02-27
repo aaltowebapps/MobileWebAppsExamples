@@ -38,6 +38,7 @@
           
           myLatLng = new google.maps.LatLng(geodata.coords.latitude, geodata.coords.longitude);
           marker.setPosition(myLatLng);
+          map.setCenter(myLatLng);
         },function() {},{enableHighAccuracy:true, maximumAge:30000, timeout:5000} );  
       })
       

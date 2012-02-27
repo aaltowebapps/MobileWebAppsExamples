@@ -1,5 +1,6 @@
 require 'em-websocket'
 require 'json'
+require 'sinatra/base'
 
 def timestamp
   Time.now.strftime("%H:%M:%S")
@@ -55,5 +56,16 @@ EventMachine.run {
         "timestamp" => timestamp}.to_json)
     }
   end
+
+  #Run a Sinatra server for serving index.html
+  class App < Sinatra::Base
+    set :public_folder, settings.root
+    
+    get '/' do
+      send_file 'index.html'
+    end
+  end
+  App.run!
 } 
+
 

@@ -1,5 +1,6 @@
 require 'em-websocket'
 require 'json'
+require 'sinatra/base'
 
 EventMachine.run {
   @channel = EM::Channel.new
@@ -36,4 +37,14 @@ EventMachine.run {
       @users.delete(ws.object_id)
     }
   end
+
+  #Run a Sinatra server for serving index.html
+  class App < Sinatra::Base
+    set :public_folder, settings.root
+    
+    get '/' do
+      send_file 'index.html'
+    end
+  end
+  App.run!
 } 

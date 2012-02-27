@@ -11,11 +11,16 @@
       WebSockets Echo
   %body
     :javascript
+      var WebSocket = window.WebSocket || window.MozWebSocket;
+
       $(function() {
-        var socket = new WebSocket('ws://echo.websocket.org/echo');
+        var WebSocket = window.WebSocket || window.MozWebSocket;
+        
+        var socket = new WebSocket('ws://echo.websocket.org/echo?encoding=text');
         
         $('#wsSend').click(function() {
-          socket.send( $('#wsMessage').val() );
+          var text = $('#wsMessage').val();
+          socket.send( text );
         })  
         socket.onopen = function(event) { 
           $('#console').append('<p>CONNECTED</p>');

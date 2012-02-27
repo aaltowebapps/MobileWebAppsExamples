@@ -33,7 +33,8 @@
         
               $(".transform").html(rotation);
               $("#imgLogo").css('-moz-transform',rotation);
-        
+              $("#imgLogo").css('-webkit-transform',rotation);
+              $("#imgLogo").css('transform',rotation);
             }, false);  
           }  
           if (window.DeviceMotionEvent) {  
