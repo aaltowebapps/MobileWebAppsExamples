@@ -66,9 +66,9 @@ Once you have created the account you can follow these guides for configuring yo
 
 ## Cloning the repository
 
-You can download the examples by simply cloning [this GitHub repository](https://github.com/clody69/MobileWebAppsExamples). Open a terminal and run the following code: 
+You can download the examples by simply cloning [this GitHub repository](https://github.com/aaltowebapps/MobileWebAppsExamples). Open a terminal and run the following code: 
 
-     clone git@github.com:clody69/MobileWebAppsExamples.git
+     clone git@github.com:aaltowebapps/MobileWebAppsExamples.git
 
 This will create a directory called `MobileWebAppsExamples` which contains all the examples in separate subdirectories. If you want you can rename it to something else. 
 
