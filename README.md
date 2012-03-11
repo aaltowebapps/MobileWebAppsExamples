@@ -1,4 +1,3 @@
-
 # Getting Started
 All that you need to get started with the examples is Git and Ruby (1.8 or 1.9). Below you find the basic instructions for 
 an easy installation on Mac, Linux and Windows. 
@@ -68,7 +67,7 @@ Once you have created the account you can follow these guides for configuring yo
 
 You can download the examples by simply cloning [this GitHub repository](https://github.com/aaltowebapps/MobileWebAppsExamples). Open a terminal and run the following code: 
 
-     clone git@github.com:aaltowebapps/MobileWebAppsExamples.git
+     git clone git@github.com:aaltowebapps/MobileWebAppsExamples.git
 
 This will create a directory called `MobileWebAppsExamples` which contains all the examples in separate subdirectories. If you want you can rename it to something else. 
 
