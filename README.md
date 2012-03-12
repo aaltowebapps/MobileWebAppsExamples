@@ -54,11 +54,11 @@ On Debian Linux (like Ubuntu) you can install Git using the apt package manager.
 
 
 ### Ruby
-On Debian Linux (like Ubunutu) you can use the apt package manager to install Ruby. You need to install Ruby with development tools (-dev): 
+On Debian Linux (like Ubuntu) you can use the apt package manager to install Ruby. You need to install Ruby with development tools (-dev): 
 
     sudo apt-get install ruby1.9.1-dev
 
-Note that this will install version 1.9.2 and not 1.9.1
+Note that this will install the latest version 1.9.2 and not 1.9.1
 
 ## on Windows
 ###Git
@@ -67,9 +67,9 @@ Installing Git is pretty easy. Just download and install the package called [msy
 ###Ruby
 1. Install Ruby **1.8.7** using [RubyInstaller](http://rubyinstaller.org/). If you are planning to use Ruby on Rails, you should consider the [RailsInstaller](http://railsinstaller.org/)
 2. Install [Ruby Development Kit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit) needed for some gems
-3. Install bundler: 'gem install bundler'
+3. Install bundler: `gem install bundler`
 
-Tip: To make sure the correct Ruby version is used in command line, open command promt using the “Start command prompt with Ruby” from the Ruby 1.8.7 subfolder in Start-menu
+*Tip*: To make sure the correct Ruby version is used in command line, open command prompt using the “Start command prompt with Ruby” from the Ruby 1.8.7 subfolder in Start-menu
 
 # Using the examples
 All the examples are contained in a single Git repository that is hosted on GitHub. Here you can find the instructions how to 
