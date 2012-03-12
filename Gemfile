@@ -17,3 +17,5 @@ gem 'pusher'
 gem 'manifesto'
 
 gem 'thin'
+
+gem 'json'

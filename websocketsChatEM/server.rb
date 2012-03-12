@@ -1,3 +1,6 @@
+require "rubygems"
+require "bundler/setup"
+
 require 'em-websocket'
 require 'json'
 require 'sinatra/base'
