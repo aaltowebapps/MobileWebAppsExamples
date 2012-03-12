@@ -1,13 +1,17 @@
 # Getting Started
-All that you need to get started with the examples is Git and Ruby (1.8 or 1.9). Below you find the basic instructions for 
-an easy installation on Mac, Linux and Windows. 
+All that you need to get started with the examples is [Git](http://git-scm.com/) and [Ruby](http://www.ruby-lang.org/en/) (1.8.7 or later) with [Bundler](http://gembundler.com/) for dependency management. 
+
+Below you find the basic instructions for an easy installation on Mac, Linux and Windows. 
 
 ## on Mac
 
 ### Git
-The easiest way for managing packages on Mac OS X is [Homebrew](http://mxcl.github.com/homebrew/)
+The easiest way is to use [Git OSX installer](http://code.google.com/p/git-osx-installer/)
 
-To install it open a terminal and paste the following command:
+#### Installing Git with Homebrew
+Git can be also be installed using [Homebrew](http://mxcl.github.com/homebrew/) package manager.
+
+To install Homebrew open a terminal and paste the following command:
 
     /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
 
@@ -15,9 +19,19 @@ Once you have installed Homebrew you can install Git with the following command:
 
     brew install git
 
+#### Git GUIs
+* [SourceTree](http://www.sourcetreeapp.com/) 
+* [GitHub for Mac](http://mac.github.com/)
+
+
 ### Ruby
-Ruby 1.8.7 is preinstalled on Mac OS X Lion (Tiger ships with Ruby 1.8.2 and Leopard with 1.8.6). If you want to install
-the latest version of Ruby or if you want to manage multiple versions, the best option is to install [RVM](https://rvm.beginrescueend.com/) (Ruby Version Manager).
+Ruby 1.8.7 is preinstalled on Mac OS X 10.6 and later (Snow Leopard and Lion). You just need to:
+
+1. Update RubyGems: `sudo gem update -system`
+2. Install bundler: `sudo gem install bundler`
+
+#### RVM
+If you want to install the latest version of Ruby or if you want to manage multiple versions, the best option is to install [RVM](https://rvm.beginrescueend.com/) (Ruby Version Manager).
 
 Open the terminal and run the following commands:
 
@@ -36,22 +50,26 @@ For more information you can check [this page](http://www.ruby-lang.org/en/downl
 ### Git
 On Debian Linux (like Ubuntu) you can install Git using the apt package manager. Open a terminal and paste the following code: 
 
-    apt-get install git-core
+    sudo apt-get install git-core
 
 
 ### Ruby
-On Debian Linux (like Ubunutu) you can use the apt package manager to install Ruby: 
+On Debian Linux (like Ubunutu) you can use the apt package manager to install Ruby. You need to install Ruby with development tools (-dev): 
 
-    $ sudo apt-get install ruby1.9.1
+    sudo apt-get install ruby1.9.1-dev
 
 Note that this will install version 1.9.2 and not 1.9.1
 
 ## on Windows
 ###Git
-Installing Git is pretty easy. Just download and insall the package called [msysGit](http://code.google.com/p/msysgit/downloads/list).
+Installing Git is pretty easy. Just download and install the package called [msysGit](http://code.google.com/p/msysgit/downloads/list).
 
 ###Ruby
-The easiest way to install Ruby on Windows is to use the self-contained installer [RubyInstaller](http://rubyinstaller.org/). Just run the installer and you are done. If you are planning to use Ruby on Rails, you should consider the [RailsInstaller](http://railsinstaller.org/)
+1. Install Ruby **1.8.7** using [RubyInstaller](http://rubyinstaller.org/). If you are planning to use Ruby on Rails, you should consider the [RailsInstaller](http://railsinstaller.org/)
+2. Install [Ruby Development Kit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit) needed for some gems
+3. Install bundler: 'gem install bundler'
+
+Tip: To make sure the correct Ruby version is used in command line, open command promt using the “Start command prompt with Ruby” from the Ruby 1.8.7 subfolder in Start-menu
 
 # Using the examples
 All the examples are contained in a single Git repository that is hosted on GitHub. Here you can find the instructions how to 
