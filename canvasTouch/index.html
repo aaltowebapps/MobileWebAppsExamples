@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;' name='viewport' />
+    <script src='http://code.jquery.com/jquery-1.6.4.min.js' type='text/javascript'></script>
+    <title>
+      Touch
+    </title>
+    <script type='text/javascript'>
+      //<![CDATA[
+        $(function() {
+          //Initialize the canvas
+          var canvas = $('#canvas')[0];
+          var ctx = canvas.getContext('2d');
+          canvas.width = $(window).width();
+          canvas.height = $(window).height();
+        
+          var colors  = ["red", "green", "yellow", "blue", "magenta", "orangered"];
+        
+          //Hash table for storing the location of the fingers
+          var fingers = {};
+          
+          //At first touch initialize a new entry in the fingers list
+          $("#canvas").bind('touchstart', function(e) {
+            $.each(e.originalEvent.changedTouches, function(index, value) {
+              fingers[value.identifier] = {oldX: value.pageX, oldY: value.pageY, x: value.pageX, y: value.pageY};
+              fingers[value.identifier].color = colors[Math.floor(Math.random() * colors.length)];
+              
+            });
+          });
+          //Track the location of the fingers
+          $("#canvas").bind('touchmove', function(e) {
+            e.preventDefault();
+            $.each(e.originalEvent.changedTouches, function(index, value) {
+              fingers[value.identifier].x = value.pageX;
+              fingers[value.identifier].y = value.pageY;
+            });
+          });
+          //Remove the finger from the list
+          $("#canvas").bind('touchend', function(e) {
+            $.each(e.originalEvent.changedTouches, function(index, value) {
+              delete fingers[value.identifier];
+            });
+          });
+          //Draw on the canvas every 15ms (about 60fps).
+          var timer = setInterval(function() {
+            $.each(fingers, function(index, value) {
+              if (value.oldX != value.x || value.oldY != value.y ) {
+                ctx.beginPath();
+                ctx.moveTo(value.oldX, value.oldY);
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = value.color;
+                ctx.lineTo(value.x,value.y);
+                ctx.closePath();
+                ctx.stroke();
+                value.oldX = value.x;
+                value.oldY = value.y;
+              }
+            });
+          }, 15);
+        });
+      //]]>
+    </script>
+  </head>
+  <body>
+    <canvas height='350' id='canvas' width='350'></canvas>
+  </body>
+</html>

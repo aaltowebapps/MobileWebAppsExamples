@@ -1,0 +1,81 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js")
+    %title
+      Instagram
+      
+    :javascript
+      $(function() {
+        var canvas = $('#canvas')[0];
+        var ctx = canvas.getContext('2d');
+
+        var header = $('div[data-role="header"]:visible');
+        var footer = $('div[data-role="footer"]:visible');
+        var content = $('div[data-role="content"]:visible');
+        var viewport_height = $(window).height();
+        var viewport_width = $(window).width();
+        var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
+        /* Trim margin/border/padding height */
+        content_height -= (content.outerHeight() - content.height());
+        
+        canvas.width = viewport_width;
+        canvas.height = content_height;
+        cols = Math.floor(canvas.width/104);
+        rows = Math.floor(canvas.height/104);
+        max = Math.min(cols*rows, 50);
+        
+        if (!localStorage.index) {
+          localStorage.index = 0;
+        }
+        
+        //Load the 3 saved images if they are available
+        $.each(['snap_0','snap_1','snap_2'], function(index, value) {
+          if(localStorage.getItem(value)) {
+            $("#"+value).attr('src',localStorage.getItem(value));
+          }
+        });
+    
+        $("#refresh").bind("click", function(e) {
+          e.preventDefault();
+          //Fetch the post popular images on istagram
+          $.getJSON('https://api.instagram.com/v1/media/popular?client_id=ffc1e462cbc8442d9247ea1b32fb45e1&callback=?', 
+            function(data) {
+              $.each(data.data.slice(0,max), function(index, value) {
+                //Use custom proxy for downloading and encoding the images in Base64
+                //to avoid cross origin issues 
+                $.get('/fetch?url=' + value.images.low_resolution.url, function (data) {
+                  //Create a new image to be placed on the canvas
+                  var img = new Image();
+                  img.onload = function () {
+                    //Copy the image to the canvas
+                    ctx.drawImage(this, 1 + (index % cols)*101, 1+(Math.floor(index/cols))*101, 100, 100);
+                  }
+                  img.src = data;
+                });
+              });
+            });
+          
+        });
+        $("#save").bind("click", function(e) {
+          e.preventDefault();
+          //Take a snapshot of the canvas as base64 encoded data URL
+          var snapshot = ctx.canvas.toDataURL('image/png');
+          //Store it in the last used slot in the localStorage
+          localStorage.setItem('snap_' + localStorage.index, snapshot);
+          //Replace the image in the saved page
+          $("#snap_" + localStorage.index).attr('src',snapshot);
+          //Increment the index 
+          localStorage.index = (JSON.parse(localStorage.index)+1) % 2;
+        });
+      })
+  %body
+    = yield
+
+        
+        

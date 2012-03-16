@@ -114,3 +114,118 @@ Each subdirectory contains a seprate example. Most of examples are based on [Sin
     
     ruby server.rb
     
+## Deploying on Heroku
+[Heroku](http://www.heroku.com) provides a free and convenient way for hosting applications in the cloud. 
+After you sign up for free on their website you can follow [these instructions](http://devcenter.heroku.com/articles/quickstart) for getting started with Heroku 
+on different platforms. 
+Once you have logged in with you account, you can start to deploy applications by pushing Git repositories. 
+Below there is an example how to deploy the sinatraHelloWorld example.
+
+### Copy the files to deploy
+First we copy all the files of the application that we need to deploy into a separate directory.
+We start in the parent directory where the examples are located and enter the following commands: 
+
+  mkdir deploy
+  cd deploy
+  cp ../MobileWebAppsExamples/sinatraHelloWorld/* .
+  
+### Configure the application 
+Heroku requires two files for configuring and starting the application: Gemfile and config.ru
+We can copy the Gemfile from the examples directory:
+
+  cp ../MobileWebAppsExamples/Gemfile
+  
+We can create the file config.ru in this way: 
+
+  touch config.ru
+  echo "require './server'" >> config.ru 
+  echo "run Sinatra::Application" >> config.ru
+
+### Create the Git repository
+We create the Git repository and commit all the files
+
+  git init
+  git add .
+  git commit -am "First commit"
+
+### Create a new Heroku instance
+We create a new Heroku instance with the following command: 
+
+  heroku create
+
+The result is:
+
+  Creating quiet-day-9893... done, stack is bamboo-mri-1.9.2
+  http://quiet-day-9893.heroku.com/ | git@heroku.com:quiet-day-9893.git
+  Git remote heroku added
+
+Heroku has create a new server instance at: [http://quiet-day-9893.heroku.com/](http://quiet-day-9893.heroku.com/)
+
+Heroku has also created a new Git repository (git@heroku.com:quiet-day-9893.git) on their servers and automatically configured is as 
+a remote for our local Git repository. We can check that with following command: 
+
+  git remote -v
+
+The result below shows that we have a new remote called heroku:  
+  heroku	git@heroku.com:quiet-day-9893.git (fetch)
+  heroku	git@heroku.com:quiet-day-9893.git (push)
+
+### Deploy the application 
+We can deploy the application by simply pushing the master to heroku:
+
+  git push heroku master
+  
+The result is the following: 
+
+  Counting objects: 5, done.
+  Delta compression using up to 4 threads.
+  Compressing objects: 100% (4/4), done.
+  Writing objects: 100% (5/5), 540 bytes, done.
+  Total 5 (delta 0), reused 0 (delta 0)
+
+  -----> Heroku receiving push
+  -----> Ruby/Sinatra app detected
+  -----> Gemfile detected, running Bundler version 1.0.7
+         Unresolved dependencies detected; Installing...
+         Using --without development:test
+
+   !     Gemfile.lock will soon be required
+   !     Check Gemfile.lock into git with `git add Gemfile.lock`
+   !     See http://devcenter.heroku.com/articles/bundler
+
+         Fetching source index for http://rubygems.org/
+         Installing addressable (2.2.7) 
+         Installing coffee-script-source (1.2.0) 
+         Installing multi_json (1.1.0) 
+         Installing execjs (1.3.0) 
+         Installing coffee-script (2.2.0) 
+         Installing daemons (1.1.8) 
+         Installing eventmachine (0.12.10) with native extensions 
+         Installing em-websocket (0.3.6) 
+         Installing ffi (1.0.11) with native extensions 
+         Installing thor (0.14.6) 
+         Installing guard (1.0.1) 
+         Installing guard-coffeescript (0.5.5) 
+         Installing haml (3.1.4) 
+         Installing guard-haml (0.3.2) 
+         Installing sass (3.1.15) 
+         Installing guard-sass (0.5.4) 
+         Installing manifesto (0.7.0) 
+         Installing ruby-hmac (0.4.0) 
+         Installing signature (0.1.2) 
+         Installing pusher (0.9.2) 
+         Installing rack (1.4.1) 
+         Installing rack-protection (1.2.0) 
+         Installing tilt (1.3.3) 
+         Installing sinatra (1.3.2) 
+         Installing thin (1.3.1) with native extensions 
+         Using bundler (1.0.7) 
+         Your bundle is complete! It was installed into ./.bundle/gems/
+  -----> Compiled slug size is 3.1MB
+  -----> Launching... done, v4
+         http://quiet-day-9893.heroku.com deployed to Heroku
+
+  To git@heroku.com:quiet-day-9893.git
+   * [new branch]      master -> master
+ 
+Now the application is deployed at: [http://quiet-day-9893.heroku.com/](http://quiet-day-9893.heroku.com/)

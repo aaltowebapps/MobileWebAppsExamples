@@ -1,0 +1,17 @@
+%div(data-role="page" id="home")
+  = haml :header
+  
+  %div(data-role="content")
+    %canvas#canvas(width='350' height='350')
+      
+  = haml :footer
+
+%div(data-role="page" id="saved")
+  =haml :header
+  
+  #snapshots
+    %img#snap_0
+    %img#snap_1
+    %img#snap_2
+    
+  =haml :footer
