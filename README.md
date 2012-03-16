@@ -130,10 +130,10 @@ We start in the parent directory where the examples are located and enter the fo
     cp ../MobileWebAppsExamples/sinatraHelloWorld/* .
   
 ### Configure the application 
-Heroku requires two files for configuring and starting the application: Gemfile and config.ru
+Heroku requires two files for configuring and starting the application: Gemfile and config.ru.
 We can copy the Gemfile from the examples directory:
 
-    cp ../MobileWebAppsExamples/Gemfile
+    cp ../MobileWebAppsExamples/Gemfile .
   
 We can create the file config.ru in this way: 
 
@@ -167,6 +167,7 @@ a remote for our local Git repository. We can check that with following command:
     git remote -v
 
 The result below shows that we have a new remote called heroku:  
+
     heroku	git@heroku.com:quiet-day-9893.git (fetch)
     heroku	git@heroku.com:quiet-day-9893.git (push)
 
