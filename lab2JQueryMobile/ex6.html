@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery Mobile Examples</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="scripts.js"></script>
+		<script src="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.js"></script>
+	</head>
+	<body>
+		<div id="main" data-role="page" >
+			<header data-role="header" data-position="fixed">
+				<h1>jQM Toolbars</h1>
+			</header>
+			<div class="content" data-role="content">
+				<a href="#other" data-transition="slide">Other content</a>
+				<p>
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+					Filler div to show the footer and header is fixed.<br />
+				</p>
+			</div>
+			<footer data-role="footer" data-position="fixed" data-id="footer">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#main" class="ui-btn-active ui-state-persist" data-transition="slide">Main</a></li>
+						<li><a href="#other" data-transition="slide">Other</a></li>
+					</ul>
+				</div>
+				<h6>&copy; Mikael Blomberg</h6>
+			</footer>
+		</div>
+		<div id="other" data-role="page" data-add-back-btn="true">
+			<header data-role="header" data-position="inline">
+				<h1>Other</h1>
+				<a href="index.html" data-icon="gear" class="ui-btn-right">Settings</a>
+			</header>
+			<div class="content" data-role="content">
+				<p class="none">
+					Empty
+				</p>
+			</div>
+			<footer data-role="footer" data-position="fixed" data-id="footer">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#main" data-transition="slide">Main</a></li>
+						<li><a href="#other" class="ui-btn-active ui-state-persist" data-transition="slide">Other</a></li>
+					</ul>
+				</div>
+				<h6>&copy; Mikael Blomberg</h6>
+			</footer>
+		</div>
+	</body>
+</html>
