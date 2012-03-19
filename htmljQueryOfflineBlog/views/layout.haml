@@ -29,7 +29,7 @@
         $("#optName").val(localStorage.name);
         $("#optEmail").val(localStorage.email);
           
-        $("#postEntry").bind("click", function() {
+        $("#postEntry").bind("click", function(e) {
           e.preventDefault();
           $("#new .invalid").removeClass("invalid")
           if ($("#new :invalid").length) {
