@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery Mobile Examples</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="scripts.js"></script>
+		<script src="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.js"></script>
+	</head>
+	<body>
+		<div id="main" data-role="page">
+			<header data-role="header">
+				<h1>jQM Form Elements</h1>
+			</header>
+			<div class="content" data-role="content">
+				<form action="#" method="get">
+					<input type="text" data-role="none" value="No enhancement" />
+
+					<label for="search">Search Input:</label>
+					<input type="search" name="search" id="search" value="" />
+
+					<label for="plain" class="ui-hidden-accessible">Hidden Label:</label>
+					<input type="text" name="name" id="plain" placeholder="Hidden Label"/>
+					
+					<div data-role="fieldcontain">
+						<label for="mini" >Text Input Mini:</label>
+						<input type="text" name="name" id="mini" value="" data-mini="true" />
+					</div>
+					
+					<fieldset data-role="controlgroup" data-mini="true">
+						<legend>Select number:</legend>
+				     	<input type="radio" name="radio" id="radio1" value="1" checked="checked" />
+				     	<label for="radio1">1</label>
+				
+				     	<input type="radio" name="radio" id="radio2" value="2" />
+				     	<label for="radio2">2</label>
+					</fieldset>
+					
+					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+						<legend>Select numbers:</legend>
+						<input type="checkbox" name="checkbox-1" id="checkbox-1" />
+						<label for="checkbox-1">1</label>
+						<input type="checkbox" name="checkbox-2" id="checkbox-2" />
+						<label for="checkbox-2">2</label>
+						<input type="checkbox" name="checkbox-3" id="checkbox-3" />
+						<label for="checkbox-3">3</label>
+					</fieldset>
+					
+					<label for="slider">Slider 75/100 &plusmn;5</label>
+					<input type="range" name="slider" id="slider" value="75" min="0" max="100" step="5" data-highlight="true" data-mini="true" />
+ 				</form>
+			</div>
+			<footer data-role="footer">
+				<h6>&copy; Mikael Blomberg</h6>
+			</footer></div>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery Mobile Examples</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="scripts.js"></script>
+		<script src="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.js"></script>
+	</head>
+	<body>
+		<div id="main" data-role="page">
+			<header data-role="header">
+				<h1>jQM List Views</h1>
+			</header>
+			<div class="content" data-role="content">
+				<h3>Unordered list</h3>
+				<ul data-role="listview">
+					<li>Item A</li>
+					<li><a href="#">Item B</a></li>
+				</ul>
+				<h3>Ordered list</h3>
+				<ol data-role="listview">
+					<li>Item A</li>
+					<li><a href="#">Item B</a></li>
+				</ol>
+				<h3>Nested list</h3>
+				<ul data-role="listview">
+					<li>
+						Item A
+						<ul>
+							<li>
+								<a href="#">Split button A</a>
+								<a href="#">Go!</a>
+								<ul data-role="listview" data-inset="true" data-filter="true">
+									<li>Item A</li>
+									<li>Item B1</li>
+									<li>Item B2</li>
+									<li>Item B3</li>
+									<li>Item B3C</li>
+								</ul>
+							</li>
+							<li data-role="divider">Divider</li>
+							<li>
+								<a href="#">Split button B</a>
+								<span class="ui-li-count">7</span>
+								<a href="#">Go!</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<footer data-role="footer">
+				<h6>&copy; Mikael Blomberg</h6>
+			</footer>
+		</div>
+	</body>
+</html>

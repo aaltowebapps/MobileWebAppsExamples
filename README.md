@@ -112,7 +112,7 @@ Once you have install Bundler you can install the additional gems by running the
 ## Launching the examples 
 Each subdirectory contains a seprate example. Most of examples are based on [Sinatra](http://www.sinatrarb.com/) and you can launch the server with the following command: 
     
-    ruby server.rb
+    ruby -rubygems server.rb
     
 ## Deploying on Heroku
 [Heroku](http://www.heroku.com) provides a free and convenient way for hosting applications in the cloud. 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery Mobile Examples</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="scripts.js"></script>
+		<script src="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.js"></script>
+	</head>
+	<body>
+		<div id="main" data-role="page">
+			<header data-role="header">
+				<h1>jQM Content Formatting</h1>
+			</header>
+			<div class="content" data-role="content">
+				<div class="ui-grid-d">
+					<div class="ui-block-a ui-bar-a">1</div>
+					<div class="ui-block-b ui-bar-b">2</div>
+					<div class="ui-block-c ui-bar-c">3</div>
+					<div class="ui-block-d ui-bar-d">4</div>
+					<div class="ui-block-e ui-bar-e">5</div>
+					<div class="ui-block-a ui-bar-e">6</div>
+					<div class="ui-block-b ui-bar-e">7</div>
+					<div class="ui-block-a ui-bar-e">8</div>
+				</div>
+				
+				<div data-role="collapsible">
+					<h3>Header</h3>
+					<p>Content</p>
+				</div>
+
+				<div data-role="collapsible" data-collapsed="false">
+					<h6>Collapsible</h6>
+					<p>
+						Content
+						<div data-role="collapsible">
+							<h6>Nested</h6>
+							<p>Content</p>
+						</div>
+					</p>
+				</div>
+			</div>
+			<footer data-role="footer">
+				<h6>&copy; Mikael Blomberg</h6>
+			</footer>
+		</div>
+	</body>
+</html>
