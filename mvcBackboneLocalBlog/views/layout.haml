@@ -11,6 +11,7 @@
     %script(type="text/javascript" src="underscore.js")
     %script(type="text/javascript" src="json2.js")
     %script(type="text/javascript" src="backbone.js")
+    %script(type="text/javascript" src="backbone.localStorage.js")
  
     %title
       Blog
@@ -37,7 +38,7 @@
 
       var Articles = Backbone.Collection.extend ({
         model: Article,
-        url: '/articles'
+        localStorage: new Backbone.LocalStorage("Articles")
       });
             
       $(function() {
@@ -158,7 +159,7 @@
         //Fetch the latest articles and trigger an update of the views
         articles.fetch();
       })
-      
+
       
   %body
     = haml :templates
