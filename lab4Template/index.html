@@ -30,7 +30,10 @@
           $("#refresh").bind("click", function(e) {
             e.preventDefault();
           });
-          $("#save").bind("click", function(e) {
+          $("#save_local").bind("click", function(e) {
+            e.preventDefault();
+          });
+          $("#save_server").bind("click", function(e) {
             e.preventDefault();
           });
         })
@@ -52,7 +55,10 @@
               <a href="#home" id="refresh">Refresh</a>
             </li>
             <li>
-              <a href="#home" id="save">Save</a>
+              <a href="#home" id="save_local">Save locally</a>
+            </li>
+            <li>
+              <a href="#home" id="save_server">Save to server</a>
             </li>
           </ul>
         </div>
