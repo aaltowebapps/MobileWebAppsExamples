@@ -35,7 +35,7 @@
         }
         
         //Load the 3 saved images if they are available
-        $.each(['snap_0','snap_1','snap_2'], function(index, value) {
+        $.each(['snap_0','snap_1'], function(index, value) {
           if(localStorage.getItem(value)) {
             $("#"+value).attr('src',localStorage.getItem(value));
           }
