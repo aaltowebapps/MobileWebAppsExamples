@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html class="ui-mobile"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--<base href="http://localhost:4567/">--><base href=".">
+<html class="ui-mobile">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -35,26 +37,26 @@
       //]]>
     </script>
   </head>
-  <body class="ui-mobile-viewport">
-    <div data-role="page" id="home" data-url="home" tabindex="0" class="ui-page ui-body-c ui-page-active" style="min-height: 722px; ">
-      <div data-role="header" class="ui-header ui-bar-a" role="banner">
-        <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">Lab4 template</h1>
+  <body>
+    <div data-role="page" id="home">
+      <div data-role="header">
+        <h1>Lab4 template</h1>
       </div>
-      <div data-role="content" class="ui-content" role="main">
-        <canvas height="609" id="canvas" width="1344"></canvas>
+      <div data-role="content">
+        <canvas id="canvas"></canvas>
       </div>
-      <div data-position="fixed" data-role="footer" class="ui-footer ui-bar-a ui-footer-fixed fade ui-fixed-overlay" role="contentinfo" style="top: -31px; ">
-        <div data-role="navbar" class="ui-navbar ui-navbar-noicons" role="navigation">
-          <ul class="ui-grid-b">
-            <li class="ui-block-a">
-              <a href="#home" id="refresh" data-theme="a" class="ui-btn ui-btn-up-a"><span class="ui-btn-inner" aria-hidden="true"><span class="ui-btn-text">Refresh</span></span></a>
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li>
+              <a href="#home" id="refresh">Refresh</a>
             </li>
-            <li class="ui-block-b">
-              <a href="#home" id="save" data-theme="a" class="ui-btn ui-btn-up-a"><span class="ui-btn-inner" aria-hidden="true"><span class="ui-btn-text">Save</span></span></a>
+            <li>
+              <a href="#home" id="save">Save</a>
             </li>
           </ul>
         </div>
       </div>
     </div>
-
-<div class="ui-loader ui-body-a ui-corner-all" style="top: 361px; "><span class="ui-icon ui-icon-loading spin"></span><h1>loading</h1></div></body></html>
+  </body>
+</html>
