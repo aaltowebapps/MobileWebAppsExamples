@@ -1,0 +1,80 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js")
+ 
+    %title
+      Touch Drag
+    :css
+      .square {
+        height: 100px;
+      	width: 100px;
+      	background-color: red;
+      	position: absolute;
+      	top: 15px;
+      	left: 15px;
+      	color: white;
+      	text-align: center;
+      }
+    :javascript
+      $(function() {
+        var body = $('body')[0];
+        body.width = $(window).width();
+        body.height = $(window).height();
+        var offsetX, offsetY;
+
+        var square = $('.square');
+
+        square.on('touchstart', function(e){
+          setOffset(e);
+          square.on('touchmove', drag);
+          //square.off('mousedown');
+        });
+        square.on('touchend', function(e) {
+          square.off('touchmove');
+        });
+        
+        square.on('mousedown', function(e) {
+          setOffset(e);
+          square.on('mousemove', drag);
+        });
+
+        square.on('mouseup', function(e) {
+           square.off('mousemove');
+         });
+        
+        function getPos(e) {
+          var coord = [];
+          if (e.originalEvent.touches && e.originalEvent.touches.length) {
+            coord[0] = e.originalEvent.touches[0].clientX;
+            coord[1] = e.originalEvent.touches[0].clientY;
+      		} else
+      		{
+            coord[0] = e.clientX;
+            coord[1] = e.clientY;
+      		}
+          return coord;
+        }
+        
+        function setOffset(e) {
+          var coord = getPos(e);
+          offsetX = coord[0] - square.position().left;
+          offsetY = coord[1] - square.position().top;
+        }
+        
+        function drag(e) {
+          var coord = getPos(e);
+          square.css('left', coord[0] - offsetX + 'px');
+          square.css('top', coord[1] - offsetY + 'px');
+      		return false;        
+        }
+        
+      });
+    
+  %body
+    %p Touch and drag the square around
+    %div.square
+      Drag me

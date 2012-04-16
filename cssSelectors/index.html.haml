@@ -1,0 +1,87 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")  
+
+    :css
+      a[href^='mailto'] {
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFdSURBVHjaxFM7TsNAFJz4lwQ6EL+URBEgIWSRCxgBQaLgAIiGjpaGI9DSIyTEARASRRoKfAGjdCiizw0gidcbs7OLY7kAglLwpPHTzpt5u14/l9I0xTRhYcpwriM8uzaCsg1UHQXX5LKC4nUICQwToE8Ik4dS86EjpQwAG6f+33ZWG4NeK0kSbK8YYpROBmrpodcSQmBrCfCXgZsXRY5+BjXU0kOvbsDC5qIhL9u9b82sUUMt17pBHMcQXChsLAD7fg3nt9GYy0CONWoyjl5Hn0Dml/PU6eHkoImLu6hwaeRYW9+tjTl6newEjMcucLZjBMetZqFBY15B1e5fgaM1w+UnUA3ab8Bhw7wboz5X/GwZTw03YtYn4IPmVj0X/RbU0qMvkd9yb3XyGchAD72cxPDqoRNUPBszan5nK67OVc+B9zXLsZrZfpzgQ83z+0DoPIglJzEs/fvf+CnAAAH6AZJ7yOcnAAAAAElFTkSuQmCC') no-repeat left center;
+        padding-left: 20px;
+      }
+
+      a[href^='http'] {
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAKAgMAAAAfnkwQAAAAA3NCSVQICAjb4U/gAAAACVBMVEX///8kUmQkUmTp7WYpAAAAA3RSTlMAu//QRVwgAAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M0BrLToAAAABZ0RVh0Q3JlYXRpb24gVGltZQAwOC8xMi8xMKNAeX0AAAAnSURBVAiZY2BgDGFgYEhhEHWcwiDA5sIgIMnAICACxAwOcCwa6gAATVoD5WIuD5EAAAAASUVORK5CYII=') no-repeat left center;
+        padding-left: 20px;
+      }
+
+      a[href$='.pdf'] {
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHhSURBVDjLjZPLSxtRFIfVZRdWi0oFBf+BrhRx5dKVYKG4tLhRqlgXPmIVJQiC60JCCZYqFHQh7rrQlUK7aVUUfCBRG5RkJpNkkswrM5NEf73n6gxpHujAB/fOvefjnHM5VQCqCPa1MNoZnU/Qxqhx4woE7ZZlpXO53F0+n0c52Dl8Pt/nQkmhoJOCdUWBsvQJ2u4ODMOAwvapVAqSJHGJKIrw+/2uxAmuJgFdMDUVincSxvEBTNOEpmlIp9OIxWJckMlkoOs6AoHAg6RYYNs2kp4RqOvfuIACVFVFPB4vKYn3pFjAykDSOwVta52vqW6nlEQiwTMRBKGygIh9GEDCMwZH6EgoE+qHLMuVBdbfKwjv3yE6Ogjz/PQ/CZVDPSFRRYE4/RHy1y8wry8RGWGSqyC/nM1meX9IQpQV2JKIUH8vrEgYmeAFwuPDCHa9QehtD26HBhCZnYC8ucGzKSsIL8wgsjiH1PYPxL+vQvm5B/3sBMLyIm7GhhCe90BaWykV/Gp+VR9oqPVe9vfBTsruM1HtBKVPmFIUNusBrV3B4ev6bsbyXlPdkbr/u+StHUkxruBPY+0KY8f38oWX/byvNAdluHNLeOxDB+uyQQfPCWZ3NT69BYJWkjxjnB1o9Fv/ASQ5s+ABz8i2AAAAAElFTkSuQmCC') no-repeat left center;
+        padding-left: 20px;
+      }
+
+      a[href$='.doc'] {
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAblJREFUeNqUU8tKQlEUXfd2r6GG0QMrqEEPrKEYNXLQ1EjQkKCBQuDEPqSBH6ADwUoQghpGEAUNCgwHPYiwJwUO8jVpkPnkdvfRI1qStWCx4Zy9F3uvfY6gKAoIkUgkoAYffkfQ4/Gst5yQADEcDivVavVXUo7KAK8hilyoUqmwmM1mkclkGNPpNFKpFCPBbrdTni8UCgV4XUOgXC6zKAhCC0VRZJFQKpXgdDop1xdQwfJt7l0Ff8D+1jKSySRkWYZGo0E0GmWegAQ6gXLaeeL3+xUJf0QulwPfGEWj0chGYgIbm08oFBTotQVYzf04jr9gYmwSR+dv0OrkFm+omHtSLBZrJi7MD6oXHzCb+nAQe8fjawa9PQruH+KwTufbmstNZQKzJgMk9Sx2+4nDswSKFQO2959h0L7DOjdVW1d9G80CjQ6kLgH5qg6nl8/wOsbRrR/BXSKOVZsFo0MDLR18X6tYMwWIX1/BuzSMNYcFN4kLWGZ6sLK4ALluc7sRqAOJd3ASWmk4fr3j/rEFXtQMenxMYNGz13GN7QRohMancLlc7NF0+lCcBKqRmj5TUH3nPvwPwS8BBgDXGUkEhz+r9gAAAABJRU5ErkJggg==') no-repeat left center;
+        padding-left: 20px;
+      }
+
+      a[href*='.rss'] {
+        background: url('data:image/gif;base64,R0lGODlhDwAPAOYAAP90M//oy/+2Wf/Svv9vMP+JKP+6hv+pQP/nzf/RpP/8+v92Nv+qXP+qVv/ezf+gO/93Lv+gUf/Krf/IqP+GMv+cSf+0j//u5f/z6v+OL/+GP//Lk//Vp/+0kf/Lp//Rtf/Yxf+8df+fVf9+Qf/Yrv/Rsf/Cl/+9nv/Inf98L//Ikv+mVf/x4/+aLv/Mq//Xvv+2i/+OTP+LR//cyP/o0f/Wu//79//Tpv+uXf/s2//+/P+HRv/59f/u4P+6lf+sbP+AJ/9pI/+/n/98Pv/69f99Kf/bv/+xiv+/if+TKP+DJP9yH/9tHv+IJf9kG/99Iv+YKf9oHf+OJ/94If9gGv+iLP+gLP+cK////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAPAA8AAAesgAECVYSFhlUCAQdWjI2OjQdXkpOUlVBQDxskCBwhLZegUEkNCSo3NFhYLDhJra1SsLEMOVhEK7FSTboVERlNBUg6PQW6TUoiKEY8NgZKSgZYP85KT9VPFCVYJk9AGB7WU+HiLwpFUzUu4ksxMx8pSxpYMksTMEv3TA6pPkxMFxBMJOzoxyQKiFRHokQRotCCQoUAFpzoEMSJkyEWR1h0AmAAASogQ4qkQmBAIAA7') no-repeat left center;
+        padding-left: 20px;
+      }
+      
+      /* Enlarge first line of paragraph text*/
+      p:first-line {font-size: 1.5em;}
+      
+      /* Enlarge first letter of the paragraph */
+      p:first-letter {
+        font-size:250%;
+        font-weight:bold;
+      }
+
+      /* Enlarge first letter of the paragraph */
+      p:nth-child(2n+1) {
+        font-style: italic;
+      }
+
+      /* Indent the first line of paragraph except the first one*/
+      p + p { text-indent: 1.5em; }
+        
+      
+%body
+  %h1 Lorem Ipsum
+  
+  #fixed Example of fixed element
+  
+  .container
+    %div
+      %h2 Chapter 1
+      %p
+        Lorem ipsum dolor sit amet, 
+        %a(href="http://www.example.com") Link
+        consectetur adipiscing elit. Quisque condimentum varius neque, 
+        %a(href="mailto:example@example.com")email
+        nec porta lacus laoreet non.       
+      %p
+        Donec at mi non ante ornare elementum. 
+        %a(href="/example.pdf") PDF file
+        Aenean fringilla tincidunt vestibulum. In in ipsum eget quam tempor aliquet.
+        %a(href="/example.doc") DOC file
+        Aliquam placerat mauris ac odio aliquam posuere. 
+        %a(href="/example.rss?something=value") RSS Feed 
+        Aliquam mattis auctor consectetur. Proin condimentum felis sit amet magna venenatis mollis. Donec nulla leo, viverra ut interdum at, vehicula at magna. Curabitur mauris orci, rhoncus ut congue quis, tincidunt et risus. Pellentesque vitae metus quam. Praesent sollicitudin tincidunt dolor, ac suscipit arcu suscipit et. Duis venenatis purus ut magna consequat facilisis. In dolor quam, feugiat non iaculis id, aliquet a neque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla quis nisi est.
+    %div
+      %h2 Chapter 2
+      %p 
+        Aliquam erat volutpat. Mauris consectetur ante eget tellus fermentum blandit. 
+        %a(href="http://www.example.com") Link
+        Fusce ac massa dolor, non vestibulum dolor. 
+      %p
+        Maecenas in ligula nulla. Nunc convallis pharetra urna id hendrerit.
+      %p 
+        Etiam porttitor nunc eget lorem faucibus varius. Morbi ut nulla eros, sed vehicula sapien. 
+      %p 
+        Nunc mauris dui, posuere ac porta non, imperdiet ut tortor. Nam dui elit, egestas ut lobortis et, facilisis eget quam. 
+      %p
+        Integer quis sapien vel arcu ultrices luctus ut ut augue. Fusce at ante in nibh suscipit feugiat. Quisque at sem turpis, id lacinia justo. Curabitur molestie suscipit neque. Vestibulum aliquet, odio in placerat hendrerit, arcu nulla mattis dolor, a pellentesque turpis dui sit amet tortor. Donec adipiscing odio at leo consectetur quis dictum mauris bibendum. Pellentesque volutpat orci sit amet erat molestie blandit.
