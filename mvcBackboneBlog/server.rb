@@ -48,7 +48,7 @@ post '/articles' do
     end
     article[:timestamp] = timestamp
     article[:id] = $articles.length
-    $articles.unshift(article)
+    $articles[article[:id].to_i] = article
     puts "    new article: #{article}"
     
     article.to_json  
