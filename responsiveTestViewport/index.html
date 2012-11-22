@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="viewport" id="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />	
+	<title>Screen Test</title>
+	<style type="text/css">
+		body, html { margin: 0; padding: 0; font: 10pt/1.33em sans-serif; color: #333; background-color: #eee; -webkit-text-size-adjust: none }
+		#container { padding: 10px }
+		dt, dd { padding: 0 5px 5px 0; text-align: left; vertical-align: top }
+		dt { float: left; min-width: 170px; font-weight: normal }
+		h1 { font-size: 160%; line-height: 1.33em; margin: 0 0 0.5em 0; padding: 0 }
+	</style>
+	<script type="text/javascript">
+	<!--
+		var pixelRatioDescriptor = "";
+		if(window.devicePixelRatio === undefined) {
+		} else {
+			if(window.devicePixelRatio<=1) {
+				pixelRatioDescriptor = " (MDPI or standard resolution)";
+			} else if(window.devicePixelRatio<=1.5) {
+				pixelRatioDescriptor = " (HDPI)";
+			} else if(window.devicePixelRatio<2) {
+				pixelRatioDescriptor = " (XHDPI)";
+			} if(window.devicePixelRatio>=2) {
+				pixelRatioDescriptor = " (Retina Display or higher)";
+			}
+		}
+		
+		//-->
+	</script>
+</head>
+<body onorientationchange="window.location.reload();" onresize="window.location.reload();" >
+<div id="container">
+
+<script type="text/javascript">
+<!--
+document.write("<p>navigator.userAgent:<br/>" + navigator.userAgent + "</p>");
+//-->
+</script>
+
+<h2>Screen Size</h2>
+<dl>
+<script type="text/javascript">
+<!--
+document.write("<dt>screen.width</dt><dd>" + screen.width + "</dd>");
+document.write("<dt>screen.height</dt><dd>" + screen.height + "</dd>");
+//-->
+</script>
+</dl>
+
+<h2>Viewport Size</h2>
+<dl>
+<script type="text/javascript">
+<!--
+document.write("<dt>screen.innerWidth</dt><dd>" + screen.innerWidth + "</dd>");
+document.write("<dt>screen.innerHeight</dt><dd>" + screen.innerHeight + "</dd>");
+document.write("<dt>window.innerWidth</dt><dd>" + window.innerWidth + "</dd>");
+document.write("<dt>window.innerHeight</dt><dd>" + window.innerHeight + "</dd>");
+document.write("<dt>document.body.clientWidth</dt><dd>" + document.body.clientWidth + "</dd>");
+document.write("<dt>document.body.clientHeight</dt><dd>" + document.body.clientHeight + "</dd>");
+document.write("<dt>window.devicePixelRatio</dt><dd>" + window.devicePixelRatio + pixelRatioDescriptor + "</dd>");
+document.write("<dt>window.orientation</dt><dd>" + window.orientation + "</dd>");
+//-->
+</script>
+</dl>
+
+<h2>Additional</h2>
+<dl>
+<script type="text/javascript">
+<!--
+document.write("<dt>screen.availWidth</dt><dd>" + screen.availWidth + "</dd>");
+document.write("<dt>screen.availHeight</dt><dd>" + screen.availHeight + "</dd>");
+document.write("<dt>screen.outerWidth</dt><dd>" + screen.outerWidth + "</dd>");
+document.write("<dt>screen.outerHeight</dt><dd>" + screen.outerHeight + "</dd>");
+document.write("<dt>window.outerWidth</dt><dd>" + window.outerWidth + "</dd>");
+document.write("<dt>window.outerHeight</dt><dd>" + window.outerHeight + "</dd>");
+document.write("<dt>document.body.offsetWidth</dt><dd>" + document.body.offsetWidth + "</dd>");
+document.write("<dt>document.body.offsetHeight</dt><dd>" + document.body.offsetHeight + "</dd>");
+//-->
+</script>
+</div>
+</body>
+</html>

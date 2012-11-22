@@ -1,0 +1,48 @@
+!!! 5
+%html
+  %head
+    %meta(charset="utf-8")
+    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
+    %meta(name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0;")
+    %link(rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css")
+    %script(type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js")
+    %script(type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js")
+
+    %title
+      Responsive Media
+   
+    :javascript
+      $(function() {
+        if(window.matchMedia(" (min-width: 50em) ").matches) {
+          $("[data-img]").each(function(i,val) {
+            var img = new Image();
+            img.src = $(val).data('img');
+            $(val).prepend(img);
+          })
+          $('.albums').listview('refresh');
+        }
+      
+      });
+      
+  %body
+    %div(data-role="page")
+      %div(data-role = "header")
+        %h1 Responsive Media
+      %div(data-role="content")
+        %ul.albums(data-role="listview")
+          %li(data-img = "cover1.jpg")
+            Nirvana
+          %li(data-img = "cover2.jpg")
+            The Beatles
+          %li(data-img = "cover3.jpg")
+            Madonna
+          %li(data-img = "cover4.jpg")
+            Lady Gaga
+          %li(data-img = "cover1.jpg")
+            Nirvana
+          %li(data-img = "cover2.jpg")
+            The Beatles
+          %li(data-img = "cover3.jpg")
+            Madonna
+          %li(data-img = "cover4.jpg")
+            Lady Gaga
