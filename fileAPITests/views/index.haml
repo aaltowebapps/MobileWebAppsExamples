@@ -194,7 +194,22 @@
           }
           reader.readAsDataURL(this.files[0]);         
         });
+
+        //Read an image from the file system and inserts in the DOM
+        //Should work on FF10 and Android 4.0
+        $("#takePhoto").click(function(e) {
+          $("#takePhotoChoose").click();
+        });
+        $("#takePhotoChoose").live('change', function(e) {
+          var reader = new FileReader();
+          reader.onload = function() {
+            var text = '<img src="'+reader.result+'"/>';
+            $("#takePhotoOutput").html(text);
+          }
+          reader.readAsDataURL(this.files[0]);         
+        });
       })
+
       
       
   %body
@@ -230,6 +245,10 @@
       %a(id="readFileDataURL" data-role="button") Insert image as URL in DOM ()
       %input(type="file" id="fileDataURLChoose" accept="image/*" style="height:0;width:0;")  
       %p#fileDataURLOutput
-        
+    %p
+      %a(id="takePhoto" data-role="button") Take a Photo
+      %input(type="file" id="takePhotoChoose" accept="image/*" style="height:0;width:0;")  
+      %p#takePhotoOutput
+      
         
         
