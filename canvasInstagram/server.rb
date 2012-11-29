@@ -11,10 +11,11 @@ get '/' do
   haml :index, :layout => :layout
 end
 
-get '/fetch' do
+post '/fetch' do
   #Fetch the image from the URL and encodes it as a data URI
-  base_image = Net::HTTP.get(URI.parse(params['url']))
-  puts "Fetched image: " + params['url']
+  puts params['low_resolution']['url']
+  base_image = Net::HTTP.get(URI.parse(params['low_resolution']['url']))
+  puts "Fetched image" 
   "data:image/png;base64,#{Base64.encode64(base_image)}"
 end
 

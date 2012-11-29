@@ -49,7 +49,7 @@
               $.each(data.data.slice(0,max), function(index, value) {
                 //Use custom proxy for downloading and encoding the images in Base64
                 //to avoid cross origin issues 
-                $.get('/fetch?url=' + value.images.low_resolution.url, function (data) {
+                $.post('/fetch', value.images, function (data) {
                   //Create a new image to be placed on the canvas
                   var img = new Image();
                   img.onload = function () {
